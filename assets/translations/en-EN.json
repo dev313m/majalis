@@ -1,0 +1,8 @@
+{
+    "appName":"Hussineyat", 
+    "introFirst":"The latest version of easy_localization package is very different than any tutorial or article online. I struggled a bit with the new version but i got stuck when i tried to create a button to change language dynamically.",
+    "introSecond":"Assign to variable s a string literal consisting in several lines of text, including newlines.", 
+    "introThird":"i found the answer... i inserted this inside the onPressed of the button", 
+    "introForth":"Assign to variable s a string literal consisting in several lines of text, including newlines."
+
+}
