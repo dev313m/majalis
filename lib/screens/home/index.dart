@@ -9,9 +9,15 @@ import 'package:majalis/screens/home/ui/top_bar.dart';
 import 'package:majalis/screens/home/utils/strings.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class PageHome extends StatelessWidget with UtilStringsHome {
+class PageHome extends StatefulWidget with UtilStringsHome {
   PageHome({Key key}) : super(key: key);
 
+  @override
+  _PageHomeState createState() => _PageHomeState();
+}
+
+class _PageHomeState extends State<PageHome>
+    with AutomaticKeepAliveClientMixin<PageHome>, UtilStringsHome {
   @override
   Widget build(BuildContext context) {
     return GlobalWidgetBackground(
@@ -22,7 +28,7 @@ class PageHome extends StatelessWidget with UtilStringsHome {
             SizedBox(
               height: 8.h,
             ),
-            UiHomeTopbar(appName: appName),
+            UiHomeTopbar(appName: this.appName),
             SizedBox(
               height: 20.h,
             ),
@@ -50,4 +56,8 @@ class PageHome extends StatelessWidget with UtilStringsHome {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

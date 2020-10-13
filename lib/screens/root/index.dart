@@ -6,24 +6,46 @@ import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:majalis/global_utils/colors/colors.dart';
 import 'package:majalis/global_utils/widgets/pages_background.dart';
 import 'package:majalis/screens/home/index.dart';
+import 'package:majalis/screens/intro/index.dart';
+import 'package:majalis/screens/notifications/index.dart';
+import 'package:majalis/screens/root/ui_root_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class PageRoot extends StatefulWidget {
-  PageRoot({Key key}) : super(key: key);
+  const PageRoot({Key key}) : super(key: key);
 
   @override
   _PageRootState createState() => _PageRootState();
 }
 
-class _PageRootState extends State<PageRoot> with SingleTickerProviderStateMixin {
+class _PageRootState extends State<PageRoot> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<UiHelperRoot>(
+        create: (context) => UiHelperRoot(),
+        builder: (_, child) {
+          return PageBigChild();
+        });
+  }
+}
+
+class PageBigChild extends StatefulWidget {
+  PageBigChild({Key key}) : super(key: key);
+
+  @override
+  _PageBigChildState createState() => _PageBigChildState();
+}
+
+class _PageBigChildState extends State<PageBigChild> with SingleTickerProviderStateMixin {
   var _bottomNavIndex = 0; //default index of first screen
 
   AnimationController _animationController;
   Animation<double> animation;
   CurvedAnimation curve;
-  PageController _pageController;
 
   final iconList = <IconData>[
     Icons.settings,
@@ -66,15 +88,19 @@ class _PageRootState extends State<PageRoot> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: Size(1080, 2244), allowFontScaling: false);
+    ScreenUtil().setSp(24, allowFontScalingSelf: true);
+
     return GlobalWidgetBackground(
         child: Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
       body: PageView(
+        controller: Provider.of<UiHelperRoot>(context).pageController,
         children: [
           PageHome(),
-          PageHome(),
-          PageHome(),
+          PageIntro(),
+          PageNotifications(),
           PageHome(),
           PageHome(),
         ],
@@ -116,7 +142,13 @@ class _PageRootState extends State<PageRoot> with SingleTickerProviderStateMixin
               gapLocation: GapLocation.center,
               leftCornerRadius: 32,
               rightCornerRadius: 32,
-              onTap: (index) => setState(() => _bottomNavIndex = index),
+              onTap: (index) {
+                Provider.of<UiHelperRoot>(context, listen: false).pageController.animateToPage(
+                    index,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeIn);
+                setState(() => _bottomNavIndex = index);
+              },
             ),
           ),
         ),

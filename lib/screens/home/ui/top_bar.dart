@@ -14,7 +14,7 @@ class UiHomeTopbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalWidgetBlurContainer(
-      height: 80.h,
+      height: 0.1.hp,
       child: Padding(
         padding: EdgeInsets.all(8.0.w),
         child: Row(
@@ -28,7 +28,7 @@ class UiHomeTopbar extends StatelessWidget {
             Expanded(
               child: Text(
                 this.appName.tr(),
-                style: TextStyle(color: Colors.white70, fontSize: 28.sp),
+                style: TextStyle(color: Colors.white70, fontSize: 28.ssp),
               ),
             ),
             IconButton(icon: Icon(Icons.message), color: Color(0x6C35052E), onPressed: () {})

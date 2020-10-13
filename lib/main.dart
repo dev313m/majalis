@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:majalis/screens/intro/index.dart';
 import 'package:majalis/screens/root/index.dart';
+import 'package:majalis/screens/root/ui_root_viewmodel.dart';
 import 'package:majalis/services/device_memory/user_type.dart';
 import 'package:majalis/view_models/base/theme.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  // Provider.debugCheckInvalidValueType = null;
+
   WidgetsFlutterBinding.ensureInitialized();
   bool isRegistered = await memoryIsFirstTimeGet();
 
@@ -30,10 +34,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return isRegistered
+    return isRegistered != null
         ? MultiProvider(
             providers: [
-                Provider<BaseViewModel>(create: (_) => BaseViewModel()),
+                Provider<BaseViewModel>(
+                  create: (_) => BaseViewModel(),
+                ),
+                Provider<UiHelperRoot>(
+                  create: (_) => UiHelperRoot(),
+                )
               ],
             child: MaterialApp(
                 // title: 'Flutter Demo',
@@ -57,10 +66,13 @@ class MyApp extends StatelessWidget {
                   // closer together (more dense) than on mobile platforms.
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-                home: PageIntro()))
+                home: PageRoot()))
         : MultiProvider(
             providers: [
                 Provider<BaseViewModel>(create: (_) => BaseViewModel()),
+                Provider<UiHelperRoot>(
+                  create: (_) => UiHelperRoot(),
+                )
               ],
             child: MaterialApp(
                 // title: 'Flutter Demo',
@@ -84,6 +96,6 @@ class MyApp extends StatelessWidget {
                   // closer together (more dense) than on mobile platforms.
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-                home: PageIntro()));
+                home: PageRoot()));
   }
 }

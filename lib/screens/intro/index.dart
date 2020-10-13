@@ -28,8 +28,6 @@ class _PageIntroState extends State<PageIntro> with FunctionIntro {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(750, 1334), allowFontScaling: false);
-
     return ChangeNotifierProvider<UiHelperIntro>(
         create: (_) => UiHelperIntro(),
         builder: (context, child) {

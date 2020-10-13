@@ -4,6 +4,10 @@ class UiHelperRoot extends ChangeNotifier {
   int _indexPage = 0;
   PageController _pageController;
 
+  UiHelperRoot() {
+    _pageController = PageController();
+  }
+
   PageController get pageController => _pageController;
 
   set pageController(PageController pageController) {
