@@ -25,24 +25,16 @@ class GlobalWidgetBlurContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.loose,
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Container(
-              width: width,
-              height: height,
-              color: backgroundColor.withOpacity(opcity),
-              child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: blurLevel, sigmaY: blurLevel),
-                  child: child == null ? SizedBox() : child),
-            ),
-          ),
-        )
-      ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        width: width,
+        height: height,
+        color: backgroundColor.withOpacity(opcity),
+        child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: blurLevel, sigmaY: blurLevel),
+            child: child == null ? SizedBox() : child),
+      ),
     );
   }
 }

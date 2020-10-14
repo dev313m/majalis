@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:majalis/global_utils/widgets/text.dart';
 import 'package:majalis/screens/intro/functions.dart';
 import 'package:majalis/screens/intro/ui/choose_language.dart';
 import 'package:majalis/screens/intro/ui/swiper.dart';
@@ -53,11 +54,11 @@ class _PageIntroState extends State<PageIntro> with FunctionIntro {
                     height: 10.h,
                   ),
                   Container(
-                    height: 50.h,
+                    height: 0.1.hp,
                     child: Center(
-                        child: Text(
+                        child: GlobalWidgetText(
                       'appName'.tr().toString(),
-                      style: TextStyle(fontSize: 34.sp, color: Colors.white),
+                      // style: TextStyle(fontSize: 34.sp, color: Colors.white),
                     )),
                   ),
                   UiIntroSwiper(),

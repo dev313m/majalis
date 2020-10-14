@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:majalis/global_utils/widgets/blur_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:majalis/global_utils/widgets/text.dart';
+import 'package:majalis/screens/intro/functions.dart';
 
-class UiIntroChooseLang extends StatelessWidget {
+class UiIntroChooseLang extends StatelessWidget with FunctionIntro {
   const UiIntroChooseLang({
     Key key,
   }) : super(key: key);
@@ -29,11 +30,8 @@ class UiIntroChooseLang extends StatelessWidget {
               itemExtent: 40,
               // diameterRatio: 2,
               offAxisFraction: 0,
-              onSelectedItemChanged: (select) {
-                if (select == 0) context.locale = Locale('ar', 'AR');
-                if (select == 1) context.locale = Locale('en', 'EN');
-
-                // setState(() {});
+              onSelectedItemChanged: (itemIndex) {
+                this.onLanguageChange(itemIndex, context);
               },
               // offAxisFraction: 0,
               // squeeze: 4,
@@ -42,13 +40,13 @@ class UiIntroChooseLang extends StatelessWidget {
               // magnification: 6,
               useMagnifier: true,
               children: [
-                Text(
+                GlobalWidgetText(
                   'اللغة العربية',
                 ),
-                Text(
+                GlobalWidgetText(
                   'English',
                 ),
-                Text('Jewish')
+                GlobalWidgetText('Jewish')
                 // Icon(Icons.ac_unit_rounded)
               ]),
           height: 250.h,

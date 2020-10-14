@@ -1,7 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:majalis/screens/intro/index.dart';
 import 'package:majalis/screens/root/index.dart';
 import 'package:majalis/screens/root/ui_root_viewmodel.dart';
 import 'package:majalis/services/device_memory/user_type.dart';

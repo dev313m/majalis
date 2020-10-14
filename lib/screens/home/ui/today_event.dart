@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:majalis/global_utils/widgets/blur_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:majalis/global_utils/widgets/text.dart';
 
 class UiHomeTodayEvent extends StatelessWidget {
   const UiHomeTodayEvent({
@@ -16,22 +17,33 @@ class UiHomeTodayEvent extends StatelessWidget {
         children: [
           Row(
             children: [
-              IconButton(icon: Icon(Icons.star), onPressed: () {}),
+              IconButton(
+                icon: Icon(Icons.circle_notifications),
+                onPressed: () {},
+                color: Colors.lime,
+              ),
               Expanded(
-                  child: Text(
+                  child: GlobalWidgetText(
                 'مناسبة هذا اليوم',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white60, fontSize: 26.sp),
+                // textAlign: TextAlign.center,
+                // style: TextStyle(color: Colors.white60, fontSize: 26.sp),
               )),
-              IconButton(icon: Icon(Icons.star), onPressed: () {}),
+              IconButton(
+                  icon: Icon(
+                    Icons.circle_notifications,
+                    color: Colors.lime,
+                  ),
+                  onPressed: () {}),
             ],
           ),
           Padding(
             padding: EdgeInsets.all(20.w),
-            child: Text(
+            child: GlobalWidgetText(
               'يصادف هذا اليوم ذكرى شهادة السيدة فاطمة ابنت اسد عليها السلام، ودفنت في المدينة المنورة ',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white38),
+              style: GlobalWidgetText.textStyleSmallFontWhite,
+              // textAlign: TextAlign.center,
+              // style: TextStyle(color: Colors.white38),
             ),
           )
         ],

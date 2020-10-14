@@ -1,7 +1,6 @@
-/**
- * This class represents the base data hold for the whole app, any thing changes here must affect all 
- * the app.
- */
+ ///This class represents the base data hold for the whole app, any thing changes here must affect all 
+ /// the app.
+ 
 
 import 'package:flutter/material.dart';
 

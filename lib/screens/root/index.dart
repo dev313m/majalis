@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:majalis/global_utils/colors/colors.dart';
 import 'package:majalis/global_utils/widgets/pages_background.dart';
 import 'package:majalis/screens/home/index.dart';
+import 'package:majalis/screens/home/ui/top_bar.dart';
 import 'package:majalis/screens/intro/index.dart';
 import 'package:majalis/screens/notifications/index.dart';
 import 'package:majalis/screens/root/ui_root_viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PageRoot extends StatefulWidget {
   const PageRoot({Key key}) : super(key: key);
@@ -40,7 +40,8 @@ class PageBigChild extends StatefulWidget {
   _PageBigChildState createState() => _PageBigChildState();
 }
 
-class _PageBigChildState extends State<PageBigChild> with SingleTickerProviderStateMixin {
+class _PageBigChildState extends State<PageBigChild>
+    with SingleTickerProviderStateMixin {
   var _bottomNavIndex = 0; //default index of first screen
 
   AnimationController _animationController;
@@ -48,10 +49,11 @@ class _PageBigChildState extends State<PageBigChild> with SingleTickerProviderSt
   CurvedAnimation curve;
 
   final iconList = <IconData>[
-    Icons.settings,
-    Icons.person,
-    Icons.play_arrow,
+    Icons.public,
+    Icons.flag,
+    Icons.favorite,
     Icons.notifications,
+    // Icons.settings,
   ];
 
   @override
@@ -88,40 +90,62 @@ class _PageBigChildState extends State<PageBigChild> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(1080, 2244), allowFontScaling: false);
+    ScreenUtil.init(context,
+        designSize: Size(1080, 2244), allowFontScaling: false);
     ScreenUtil().setSp(24, allowFontScalingSelf: true);
 
     return GlobalWidgetBackground(
         child: Scaffold(
       extendBody: true,
       backgroundColor: Colors.transparent,
-      body: PageView(
-        controller: Provider.of<UiHelperRoot>(context).pageController,
-        children: [
-          PageHome(),
-          PageIntro(),
-          PageNotifications(),
-          PageHome(),
-          PageHome(),
-        ],
-        physics: NeverScrollableScrollPhysics(),
-      ),
-      floatingActionButton: ScaleTransition(
-        scale: animation,
-        child: FloatingActionButton(
-          elevation: 8,
-          backgroundColor: HexColor('#FFA400'),
-          child: Icon(
-            Icons.home,
-            color: HexColor('#373A36'),
-          ),
-          onPressed: () {
-            _animationController.reset();
-            _animationController.forward();
-          },
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        color: Colors.transparent,
+        child: Stack(
+          // shrinkWrap: true,
+          children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: ClipOval(
+                child: Image.asset('assets/images/icon.png'),
+              ),
+            ),
+            PageView(
+              controller: Provider.of<UiHelperRoot>(context).pageController,
+              children: [
+                PageHome(),
+                PageNotifications(),
+                // PageHome(),
+                PageIntro(),
+                PageNotifications(),
+              ],
+              physics: NeverScrollableScrollPhysics(),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: UiHomeTopbar(
+                appName: 'appName'.tr(),
+              ),
+            ),
+          ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: ScaleTransition(
+      //   scale: animation,
+      //   child: FloatingActionButton(
+      //     elevation: 8,
+      //     backgroundColor: HexColor('#FFA400'),
+      //     child: Icon(
+      //       Icons.home,
+      //       color: HexColor('#373A36'),
+      //     ),
+      //     onPressed: () {
+      //       _animationController.reset();
+      //       _animationController.forward();
+      //     },
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Container(
@@ -139,14 +163,15 @@ class _PageBigChildState extends State<PageBigChild> with SingleTickerProviderSt
               notchAndCornersAnimation: animation,
               splashSpeedInMilliseconds: 300,
               notchSmoothness: NotchSmoothness.defaultEdge,
-              gapLocation: GapLocation.center,
+              // gapLocation: GapLocation.end,
               leftCornerRadius: 32,
               rightCornerRadius: 32,
               onTap: (index) {
-                Provider.of<UiHelperRoot>(context, listen: false).pageController.animateToPage(
-                    index,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeIn);
+                Provider.of<UiHelperRoot>(context, listen: false)
+                    .pageController
+                    .animateToPage(index,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeIn);
                 setState(() => _bottomNavIndex = index);
               },
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:majalis/global_utils/widgets/blur_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:majalis/global_utils/widgets/text.dart';
 
 class UiHomeTopbar extends StatelessWidget {
   const UiHomeTopbar({
@@ -14,24 +15,44 @@ class UiHomeTopbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalWidgetBlurContainer(
-      height: 0.1.hp,
+      blurLevel: 8,
+      width: double.infinity,
+      backgroundColor: Colors.purple,
+      opcity: 0.3,
+      // opcity: 0.8,
+      // backgroundColor: Colors.white,
+
+      height: 0.1.hp + MediaQuery.of(context).padding.top,
       child: Padding(
-        padding: EdgeInsets.all(8.0.w),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top,
+        ),
         child: Row(
           children: [
-            ClipOval(
-              child: Image.asset('assets/images/icon.png'),
+            Padding(
+              padding: EdgeInsets.all(8.0.w),
+              child: ClipOval(
+                child: Image.asset('assets/images/icon.png'),
+              ),
             ),
             SizedBox(
               width: 20.w,
             ),
             Expanded(
-              child: Text(
+              child: GlobalWidgetText(
                 this.appName.tr(),
-                style: TextStyle(color: Colors.white70, fontSize: 28.ssp),
+                // style: GlobalWidgetText.textStyleBigFontWhite,
+                // style: TextStyle(color: Colors.white70, fontSize: 40.sp),
               ),
             ),
-            IconButton(icon: Icon(Icons.message), color: Color(0x6C35052E), onPressed: () {})
+            IconButton(
+                icon: Icon(Icons.settings),
+                color: Color(0x6C35052E),
+                onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.message),
+                color: Color(0x6C35052E),
+                onPressed: () {})
           ],
         ),
       ),
